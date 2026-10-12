@@ -1,0 +1,631 @@
+{
+  "schema_version": "1",
+  "policy_version": "2",
+  "contract_id": "fix-connectivity-onboarding-milestones",
+  "title": "FIX Connectivity Onboarding Milestone Contracts",
+  "canonical_semantics": {
+    "current_milestone_definition": "The highest confirmed FIX onboarding stage entered. Stage entry is triggered by the operational events defined in this contract.",
+    "milestone_is_not_status": true,
+    "milestone_is_not_ball_with": true,
+    "milestone_is_not_next_action": true,
+    "m8_does_not_imply_completed": false,
+    "lower_layer_blockers_do_not_regress_milestone": true,
+    "stage_defaults_are_advisory_only": false,
+    "all_inferred_milestone_changes_require_operator_review": true,
+    "m8_implies_completed": true
+  },
+  "evidence_levels": {
+    "L1_operator_confirmed": {
+      "rank": 1,
+      "description": "Explicit operator confirmation or approved review decision."
+    },
+    "L2_authoritative_system": {
+      "rank": 2,
+      "description": "Attributable system evidence, including approved reports, authenticated logs, platform records, or controlled tickets."
+    },
+    "L3_named_authority_written": {
+      "rank": 3,
+      "description": "Written confirmation from the designated internal acceptance authority or an authorized external counterparty."
+    },
+    "L4_trusted_party_written": {
+      "rank": 4,
+      "description": "Written statement from a known trusted party that is not the required acceptance authority."
+    },
+    "L5_unverified_or_indirect": {
+      "rank": 5,
+      "description": "Unverified statement, forwarded assertion without source evidence, paraphrase, or unsupported manual note."
+    }
+  },
+  "global_evidence_policy": {
+    "acceptable_modalities_for_exit": [
+      "confirmed"
+    ],
+    "insufficient_modalities_for_exit": [
+      "in_progress",
+      "planned",
+      "conditional",
+      "quoted_history",
+      "unknown"
+    ],
+    "source_requirements": [
+      "Every accepted criterion must have at least one bounded citation with source_ref and quote.",
+      "Quoted historical content must not satisfy an exit criterion unless independently corroborated by a current eligible citation.",
+      "A future commitment, scheduling confirmation, parameter delivery, or request submission is not completion unless a criterion explicitly says otherwise.",
+      "A contradiction from a newer or stronger source must route the assessment to review or abstention.",
+      "Typical ball_with, duration, actions, and blockers are advisory context only and cannot satisfy an exit criterion.",
+      "Demo Connectivity Acceptance Support authority includes every single normalized envelope sender at the exact acceptance.demo.invalid domain and the exact acceptance-special@exception.demo.invalid mailbox; subdomains, lookalikes, other demo.invalid mailboxes, display names, and body claims are not authorized by this rule."
+    ]
+  },
+  "global_transition_policy": {
+    "initial_transition": {
+      "from": null,
+      "to": "M1_NetworkSetup",
+      "allowed": true
+    },
+    "normal_transition": {
+      "rule": "Adjacent forward transition when the next stage trigger is confirmed."
+    },
+    "jump_transition": {
+      "rule": "Every new project is created at M1 and may jump forward to the highest stage supported by confirmed current progress."
+    },
+    "rollback_transition": {
+      "allowed": []
+    },
+    "all_other_backward_transitions": {
+      "allowed": false
+    }
+  },
+  "pct_scope_policy": {
+    "scope_source_required": true,
+    "accepted_scope_sources": [
+      "Market-specific onboarding contract",
+      "Approved PCT checklist or test plan",
+      "Written scope confirmation from Demo Provisioning Support or Demo Connectivity Acceptance Support"
+    ],
+    "standard_connectivity_steps": [
+      "primary",
+      "backup",
+      "failover",
+      "failback"
+    ],
+    "standard_order_flow_steps": [
+      "test_order",
+      "expected_execution_report_or_reject"
+    ],
+    "not_applicable_policy": {
+      "per_step_record_required": true,
+      "required_fields": [
+        "step_id",
+        "scope_reason",
+        "source_ref",
+        "approved_by"
+      ],
+      "blanket_not_applicable_for_all_steps_forbidden": true,
+      "approval_authorities": [
+        "Demo Provisioning Support",
+        "Demo Connectivity Acceptance Support"
+      ]
+    }
+  },
+  "milestones": [
+    {
+      "id": "M1_NetworkSetup",
+      "display_name": "M1 - Network Setup",
+      "purpose": "Establish the client network path to the approved UAT IP address and port.",
+      "entry_criteria": [
+        {
+          "id": "M1-ENTRY-01",
+          "description": "The onboarding project is identified and the UAT connectivity scope, endpoints, and responsible parties are known or actively being established."
+        }
+      ],
+      "in_progress_signals": [
+        "VPN, firewall, allowlist, IP, port, or routing setup is in progress."
+      ],
+      "required_exit_criteria": [
+        {
+          "id": "M1-EXIT-01",
+          "predicate": "client_ip_port_confirmed_ok",
+          "description": "The client confirms that the approved IP address and port are reachable.",
+          "minimum_evidence_level": "L4_trusted_party_written",
+          "accepted_evidence_predicates": [
+            "client_ip_port_confirmed_ok"
+          ]
+        }
+      ],
+      "optional_exit_criteria": [],
+      "accepted_evidence": {
+        "minimum_exit_evidence_level": "L4_trusted_party_written",
+        "acceptable_sources": [
+          "Current email or ticket confirmation matching the stage trigger."
+        ]
+      },
+      "insufficient_evidence_signals": [
+        "Network setup was requested but the client has not confirmed IP/port connectivity."
+      ],
+      "contradiction_signals": [
+        "The client reports that the IP address or port is unreachable."
+      ],
+      "acceptance_authority": {
+        "primary": [
+          "Client",
+          "Client technical contact"
+        ],
+        "external_confirmation_required": true,
+        "operator_review_required_for_inferred_advance": true
+      },
+      "typical_actions": [
+        "Confirm the approved UAT destination IP and port with internal support.",
+        "Ask the client to test from its approved source IP.",
+        "Record the client confirmation that IP and port are reachable."
+      ],
+      "typical_blockers": [
+        "Approved endpoint or source IP is unknown.",
+        "Firewall, VPN, routing, or allowlisting prevents reachability.",
+        "Client connectivity confirmation is pending."
+      ],
+      "allowed_transitions": {
+        "next": [
+          "M2_UATSessionConfiguration"
+        ],
+        "revert": []
+      }
+    },
+    {
+      "id": "M2_UATSessionConfiguration",
+      "display_name": "M2 - UAT Session Configuration",
+      "purpose": "Provide and configure the UAT FIX session so the client can connect.",
+      "entry_criteria": [
+        {
+          "id": "M2-ENTRY-01",
+          "description": "M1 exit criteria are satisfied and the UAT network path is validated."
+        }
+      ],
+      "in_progress_signals": [
+        "UAT session information is being prepared, delivered, or configured."
+      ],
+      "required_exit_criteria": [
+        {
+          "id": "M2-EXIT-01",
+          "predicate": "client_connected_or_fix_logon_confirmed",
+          "description": "The client confirms FIX logon or states that it is connected; the PM does not need to obtain or inspect FIX logs.",
+          "minimum_evidence_level": "L4_trusted_party_written",
+          "accepted_evidence_predicates": [
+            "client_fix_logon_confirmed",
+            "client_connected_confirmed",
+            "validated_bidirectional_fix_session_log"
+          ]
+        }
+      ],
+      "optional_exit_criteria": [],
+      "accepted_evidence": {
+        "minimum_exit_evidence_level": "L4_trusted_party_written",
+        "acceptable_sources": [
+          "Current email or ticket confirmation matching the stage trigger."
+        ]
+      },
+      "insufficient_evidence_signals": [
+        "The client confirms only that the IP address and port are reachable."
+      ],
+      "contradiction_signals": [
+        "The client reports FIX logon failure or session configuration failure."
+      ],
+      "acceptance_authority": {
+        "primary": [
+          "Client",
+          "Client technical contact"
+        ],
+        "external_confirmation_required": true,
+        "operator_review_required_for_inferred_advance": true
+      },
+      "typical_actions": [
+        "Provide the approved UAT FIX session information.",
+        "Confirm FIX version, CompIDs, heartbeat, schedule, and reset policy.",
+        "Ask the client to log on and confirm connection."
+      ],
+      "typical_blockers": [
+        "Session parameters are incomplete or inconsistent.",
+        "FIX logon is rejected or times out.",
+        "Client logon confirmation is pending."
+      ],
+      "allowed_transitions": {
+        "next": [
+          "M3_UATEnvironmentAccess"
+        ],
+        "revert": []
+      }
+    },
+    {
+      "id": "M3_UATEnvironmentAccess",
+      "display_name": "M3 - UAT Environment Access",
+      "purpose": "Confirm FIX session access before order-response testing.",
+      "entry_criteria": [
+        {
+          "id": "M3-ENTRY-01",
+          "description": "M2 exit criteria are satisfied and usable UAT session parameters have been provisioned."
+        }
+      ],
+      "in_progress_signals": [
+        "The client has connected and is preparing or starting a basic test."
+      ],
+      "required_exit_criteria": [
+        {
+          "id": "M3-EXIT-01",
+          "predicate": "basic_test_response_or_client_ok_confirmed",
+          "description": "A normal execution report, an expected test reject, explicit client confirmation that testing is OK, or confirmed application testing in progress is received. Formal conformance start is evaluated separately.",
+          "minimum_evidence_level": "L4_trusted_party_written",
+          "accepted_evidence_predicates": [
+            "normal_execution_report_received",
+            "expected_test_reject_received",
+            "client_basic_test_ok_confirmed",
+            "application_testing_started"
+          ]
+        }
+      ],
+      "optional_exit_criteria": [],
+      "accepted_evidence": {
+        "minimum_exit_evidence_level": "L4_trusted_party_written",
+        "acceptable_sources": [
+          "Current email or ticket confirmation matching the stage trigger."
+        ]
+      },
+      "insufficient_evidence_signals": [
+        "FIX logon succeeded but no response or client test confirmation has been received."
+      ],
+      "contradiction_signals": [
+        "An unexpected reject, no response, or session error remains unresolved."
+      ],
+      "acceptance_authority": {
+        "primary": [
+          "Client",
+          "Client technical contact",
+          "Current FIX application response"
+        ],
+        "external_confirmation_required": true,
+        "operator_review_required_for_inferred_advance": true
+      },
+      "typical_actions": [
+        "Ask the client to send a bounded UAT test order or agreed negative test.",
+        "Confirm a normal Execution Report, planned Reject, or client statement that testing is OK.",
+        "Collect bounded evidence only when diagnosing an unexpected result."
+      ],
+      "typical_blockers": [
+        "No application response is received.",
+        "The response is unexpected.",
+        "Account, routing, symbol, or message mapping is not ready."
+      ],
+      "allowed_transitions": {
+        "next": [
+          "M4_ApplicationTesting"
+        ],
+        "revert": []
+      }
+    },
+    {
+      "id": "M4_ApplicationTesting",
+      "display_name": "M4 - Application Testing",
+      "purpose": "Run general order-response testing before formal conformance.",
+      "entry_criteria": [
+        {
+          "id": "M4-ENTRY-01",
+          "description": "M3 exit criteria are satisfied and UAT session and basic message flow are validated."
+        }
+      ],
+      "in_progress_signals": [
+        "General testing is in progress; a statement such as testing started without explicit conformance context belongs to M4."
+      ],
+      "required_exit_criteria": [
+        {
+          "id": "M4-EXIT-01",
+          "predicate": "formal_conformance_testing_started",
+          "description": "The client starts executing the formal conformance test cases.",
+          "minimum_evidence_level": "L4_trusted_party_written",
+          "accepted_evidence_predicates": [
+            "formal_conformance_testing_started"
+          ]
+        }
+      ],
+      "optional_exit_criteria": [],
+      "accepted_evidence": {
+        "minimum_exit_evidence_level": "L4_trusted_party_written",
+        "acceptable_sources": [
+          "Current email or ticket confirmation matching the stage trigger."
+        ]
+      },
+      "insufficient_evidence_signals": [
+        "General testing is active but formal conformance test cases have not started."
+      ],
+      "contradiction_signals": [
+        "The client cannot begin formal conformance because setup or routing remains unusable."
+      ],
+      "acceptance_authority": {
+        "primary": [
+          "Client",
+          "Client technical contact"
+        ],
+        "external_confirmation_required": true,
+        "operator_review_required_for_inferred_advance": true
+      },
+      "typical_actions": [
+        "Complete exploratory order-response testing.",
+        "Confirm routing, account mappings, symbology, and required tags.",
+        "Provide the formal conformance pack and ask the client to begin the cases."
+      ],
+      "typical_blockers": [
+        "Basic order-response behavior is unresolved.",
+        "Formal conformance pack or test symbols are not ready.",
+        "Client has not begun formal cases."
+      ],
+      "allowed_transitions": {
+        "next": [
+          "M5_ConformanceTestCases"
+        ],
+        "revert": []
+      }
+    },
+    {
+      "id": "M5_ConformanceTestCases",
+      "display_name": "M5 - Conformance Test Cases",
+      "purpose": "Complete all mandatory conformance cases and receive the client test report.",
+      "entry_criteria": [
+        {
+          "id": "M5-ENTRY-01",
+          "description": "M4 exit criteria are satisfied and formal conformance testing can begin."
+        }
+      ],
+      "in_progress_signals": [
+        "Formal conformance cases are being executed, corrected, or completed without a qualifying report."
+      ],
+      "required_exit_criteria": [
+        {
+          "id": "M5-EXIT-01",
+          "predicate": "qualifying_test_report_submitted",
+          "description": "The client submits a test report showing every mandatory case passed or covered by a Demo Provisioning Support-approved exemption.",
+          "minimum_evidence_level": "L4_trusted_party_written",
+          "accepted_evidence_predicates": [
+            "test_report_all_mandatory_cases_passed",
+            "test_report_passed_with_provisioning_support_approved_exemptions"
+          ]
+        }
+      ],
+      "optional_exit_criteria": [],
+      "accepted_evidence": {
+        "minimum_exit_evidence_level": "L3_named_authority_written",
+        "acceptable_sources": [
+          "Current email or ticket confirmation matching the stage trigger."
+        ]
+      },
+      "insufficient_evidence_signals": [
+        "Testing completed but no report was submitted.",
+        "A report has no explicit pass/fail result.",
+        "A mandatory case failed or was not executed without Demo Provisioning Support-approved exemption."
+      ],
+      "contradiction_signals": [
+        "The report shows a failed or incomplete mandatory case without an approved exemption."
+      ],
+      "acceptance_authority": {
+        "primary": [
+          "Client",
+          "Demo Provisioning Support"
+        ],
+        "external_confirmation_required": true,
+        "operator_review_required_for_inferred_advance": true
+      },
+      "typical_actions": [
+        "Track mandatory cases and expected outcomes.",
+        "Coordinate corrections and retests without rolling back.",
+        "Obtain Demo Provisioning Support approval for any exemption.",
+        "Obtain the client-submitted report marked passed."
+      ],
+      "typical_blockers": [
+        "A mandatory case is failed or incomplete.",
+        "A requested exemption lacks Demo Provisioning Support approval.",
+        "The client report is missing or does not mark the mandatory scope passed."
+      ],
+      "allowed_transitions": {
+        "next": [
+          "M6_TestReportAndProductionPreparation"
+        ],
+        "revert": []
+      }
+    },
+    {
+      "id": "M6_TestReportAndProductionPreparation",
+      "display_name": "M6 - Test Report Complete / Production Preparation",
+      "purpose": "Record that the client report marks all mandatory cases passed or covered by Demo Provisioning-approved exemptions while production preparation proceeds.",
+      "entry_criteria": [
+        {
+          "id": "M6-ENTRY-01",
+          "description": "M5 exit criteria are satisfied and conformance results are ready for report and configuration processing."
+        }
+      ],
+      "in_progress_signals": [
+        "The qualifying client test report has been received; production session delivery or related preparation is pending.",
+        "Report clarification or supplementary work after valid M6 entry remains tracked at M6."
+      ],
+      "required_exit_criteria": [
+        {
+          "id": "M6-EXIT-01",
+          "predicate": "provisioning_support_production_session_information_delivered",
+          "description": "Demo Provisioning Support delivers the production session information.",
+          "minimum_evidence_level": "L3_named_authority_written",
+          "accepted_evidence_predicates": [
+            "provisioning_support_production_session_information_delivered"
+          ],
+          "named_authority_required_for_signoff": true,
+          "signoff_authorities": [
+            "Demo Provisioning Support"
+          ]
+        }
+      ],
+      "optional_exit_criteria": [],
+      "accepted_evidence": {
+        "minimum_exit_evidence_level": "L3_named_authority_written",
+        "acceptable_sources": [
+          "Current email or ticket confirmation matching the stage trigger."
+        ]
+      },
+      "insufficient_evidence_signals": [
+        "Production session delivery is planned or requested but has not occurred."
+      ],
+      "contradiction_signals": [
+        "Demo Provisioning Support states that production session information cannot yet be delivered."
+      ],
+      "acceptance_authority": {
+        "primary": [
+          "Demo Provisioning Support"
+        ],
+        "external_confirmation_required": false,
+        "operator_review_required_for_inferred_advance": true
+      },
+      "typical_actions": [
+        "Retain the qualifying client report and approved exemptions.",
+        "Complete required production preparation.",
+        "Ask Demo Provisioning Support to deliver the production session information when ready."
+      ],
+      "typical_blockers": [
+        "Production preparation is incomplete.",
+        "Demo Provisioning Support has not yet delivered the production session information."
+      ],
+      "allowed_transitions": {
+        "next": [
+          "M7_LogReviewAndProductionSessionDelivery"
+        ],
+        "revert": []
+      }
+    },
+    {
+      "id": "M7_LogReviewAndProductionSessionDelivery",
+      "display_name": "M7 - Production Session Delivered / PCT",
+      "purpose": "Track production setup and PCT after Demo Provisioning Support delivers production session information.",
+      "entry_criteria": [
+        {
+          "id": "M7-ENTRY-01",
+          "description": "Demo Provisioning Support has delivered the production session information."
+        }
+      ],
+      "in_progress_signals": [
+        "Production session information has been delivered; PCT is pending, active, or being corrected.",
+        "Any conformance, routing, production, or log issue found after valid M7 entry remains tracked at M7."
+      ],
+      "required_exit_criteria": [
+        {
+          "id": "M7-EXIT-01",
+          "predicate": "internal_pct_completed",
+          "description": "Demo Provisioning Support or Demo Connectivity Acceptance Support states that PCT is completed, including completion with an outstanding issue. When the project is already at M7, a direct short-form statement such as \"All tests are passed\" from an operator-confirmed member of either support team is equivalent PCT-completion evidence. Demo Connectivity Acceptance Support authority includes every exact acceptance.demo.invalid envelope sender and the exact acceptance-special@exception.demo.invalid mailbox; subdomains and lookalikes do not qualify.",
+          "minimum_evidence_level": "L3_named_authority_written",
+          "accepted_evidence_predicates": [
+            "provisioning_support_pct_completed",
+            "connectivity_acceptance_support_pct_completed",
+            "internal_pct_completed_with_outstanding_issue"
+          ],
+          "named_authority_required_for_signoff": true,
+          "signoff_authorities": [
+            "Demo Provisioning Support",
+            "Demo Connectivity Acceptance Support"
+          ]
+        }
+      ],
+      "optional_exit_criteria": [],
+      "accepted_evidence": {
+        "minimum_exit_evidence_level": "L3_named_authority_written",
+        "acceptable_sources": [
+          "Current email or ticket confirmation matching the stage trigger."
+        ]
+      },
+      "insufficient_evidence_signals": [
+        "Only the client states that PCT is completed.",
+        "PCT is scheduled, planned, or still in progress."
+      ],
+      "contradiction_signals": [
+        "Demo Provisioning Support or Demo Connectivity Acceptance Support states that PCT is incomplete or must continue."
+      ],
+      "acceptance_authority": {
+        "primary": [
+          "Demo Provisioning Support",
+          "Demo Connectivity Acceptance Support"
+        ],
+        "external_confirmation_required": false,
+        "operator_review_required_for_inferred_advance": true
+      },
+      "typical_actions": [
+        "Confirm the approved PCT scope and window.",
+        "Coordinate production connectivity, order-flow, and applicable failover testing.",
+        "Retain bounded PCT evidence.",
+        "Obtain a written PCT-completion statement from Demo Provisioning Support or Demo Connectivity Acceptance Support."
+      ],
+      "typical_blockers": [
+        "PCT scope or window is not confirmed.",
+        "Production network, session, mapping, or order flow requires correction.",
+        "Internal PCT-completion confirmation is pending."
+      ],
+      "allowed_transitions": {
+        "next": [
+          "M8_GoLive"
+        ],
+        "revert": []
+      }
+    },
+    {
+      "id": "M8_GoLive",
+      "display_name": "M8 - Go Live",
+      "purpose": "Record completed FIX onboarding after Demo Provisioning Support or Demo Connectivity Acceptance Support confirms that PCT is completed.",
+      "entry_criteria": [
+        {
+          "id": "M8-ENTRY-01",
+          "description": "Demo Provisioning Support or Demo Connectivity Acceptance Support confirms that PCT is completed. At M7, a direct short-form confirmation such as \"All tests are passed\" is sufficient only when the sender is an operator-confirmed member of one of those teams."
+        }
+      ],
+      "in_progress_signals": [
+        "The onboarding project is complete. Any outstanding or production issue is handled in a separate linked support ticket."
+      ],
+      "required_exit_criteria": [],
+      "optional_exit_criteria": [],
+      "close_criteria": [
+        {
+          "id": "M8-CLOSE-01",
+          "predicate": "project_completed_on_m8_entry",
+          "description": "Entering M8 sets project status to Completed.",
+          "minimum_evidence_level": "L3_named_authority_written",
+          "accepted_evidence_predicates": [
+            "provisioning_support_pct_completed",
+            "connectivity_acceptance_support_pct_completed",
+            "internal_pct_completed_with_outstanding_issue"
+          ]
+        }
+      ],
+      "accepted_evidence": {
+        "minimum_exit_evidence_level": "L3_named_authority_written",
+        "acceptable_sources": [
+          "Current email or ticket confirmation matching the stage trigger."
+        ]
+      },
+      "insufficient_evidence_signals": [
+        "Client-only PCT completion confirmation.",
+        "PCT planned, scheduled, or in progress."
+      ],
+      "contradiction_signals": [
+        "Internal FIX support states that PCT is incomplete."
+      ],
+      "acceptance_authority": {
+        "primary": [
+          "Demo Provisioning Support",
+          "Demo Connectivity Acceptance Support"
+        ],
+        "external_confirmation_required": false,
+        "operator_review_required_for_inferred_advance": true,
+        "operator_approval_required_for_terminal_status": false
+      },
+      "typical_actions": [
+        "Set the onboarding project to Completed.",
+        "Record the internal PCT-completion source.",
+        "Send or retain the completion note.",
+        "Create separate linked support tickets for residual production issues."
+      ],
+      "typical_blockers": [],
+      "allowed_transitions": {
+        "next": [],
+        "revert": []
+      }
+    }
+  ]
+}

@@ -1,0 +1,130 @@
+"""English strings — scheduler, digests, push cards, contact learning."""
+
+STRINGS_EN: dict[str, str] = {
+    "sched.morning_brief_title": "Morning Brief",
+    "sched.brief_suppressed": "\n\n📵 {count} notification(s) hidden since last brief.",
+    "sched.sla_title": "SLA Alert",
+    "sched.sla_body": "⏱️ {description}\n{emoji} Urgency: {level}\n📅 Due: {due_date}",
+    "sched.followup_title": "Follow-up: {action}",
+    "sched.followup_body": "📋 {description}\n🎯 Level: {level}",
+    "sched.followup_overdue": " · ⚠️ Overdue {days} day(s)",
+    "sched.closing_title": "Closing suggestion",
+    "sched.closing_body": (
+        "📋 Idle 7+ business days\n"
+        "🎯 No open follow-ups or pending updates\n"
+        "💡 Ready to close formally?"
+    ),
+    "sched.deferred_title": "Deferred re-trigger",
+    "sched.deferred_body": "📋 A previously deferred update is ready for review\n💡 {reason}",
+    "sched.email_ticket_title": "📎 Ticket update: {ticket_id}",
+    "sched.email_ticket_body": "Reply from {sender}\nSubject: {subject}",
+    "sched.email_batch_title": "Email batch summary",
+    "sched.email_batch_body": "📬 {count} additional email notification(s):\n{items}",
+    "sched.client_reply_title": "Client reply",
+    "sched.client_reply_from": "✉️ From: {sender}",
+    "sched.client_reply_re": "📧 Subject: {subject}",
+    "sched.client_reply_summary": "📝 {summary}",
+    "sched.client_reply_suggested": "💡 Suggested: {action}",
+    "sched.ticket_aging_title": "Support ticket aging",
+    "sched.ticket_aging_body": (
+        "🎫 {ticket_id} — {title}\n"
+        "⏰ Open {hours}h with no response\n"
+        "Counterparty: {counterparty}"
+    ),
+    "sched.wiki_updated": "📚 *Wiki updated* — processed {count} item(s)",
+    "sched.wiki_new_pages": "*New pages ({count}):*",
+    "sched.wiki_updated_pages": "*Updated pages ({count}):*",
+    "sched.wiki_lint_title": "📋 *Wiki Lint alert*",
+    "sched.wiki_lint_unverified": "⚠ {count} page(s) have unverified TODO/verify markers:",
+    "sched.wiki_lint_dead_links": "🔗 Found {count} dead link(s)",
+    "sched.draft_expiry": "🗑 **Drafts expired** — cleared {count} expired draft(s):",
+    "sched.draft_expiry_more": "  …and {count} more",
+    "sched.escalation_alert": "🔴 **Escalation alert** — {count} project(s) need attention:",
+    "sched.escalation_item": "• **{client_name}** — {days} day(s) inactive (milestone: {milestone})",
+    "sched.escalation_consider": "\nConsider escalating or contacting stakeholders.",
+    "push.draft_ready_title": "Draft ready (not sent)",
+    "push.draft_ready_body": "📧 To: {to_email}\n📋 Subject: {subject}\n🆔 Draft: `{draft_id}`{summary_line}",
+    "push.review_title": "Review update",
+    "staged_update.card_title": "Staged update — {project_id}",
+    "staged_update.card_body": "The following fields are staged; confirm to write to DB:",
+    "push.review_risk": "🎯 Risk: {emoji} {level}",
+    "push.review_reason": "💡 {reason}",
+    "push.review_evidence": "📎 Evidence: {refs}",
+    "push.auto_applied_banner": "✅ **Applied (undo available)**",
+    "push.auto_applied_footer": "ℹ️ Undo reverts; Dismiss accepts this update.",
+    "push.auto_applied_title": "Email update applied",
+    "push.email_review_title": "Email update pending confirm",
+    "push.email_info_title": "Email analysis",
+
+    # ── Email analysis card body (email_update_format.py) ──
+    "email_card.status_applied": "✅ Status: Applied (undo available)",
+    "email_card.status_pending": "⏳ Status: Pending confirm (not written to truth)",
+    "email_card.status_info_only": "ℹ️ Status: Analysis only (no field changes)",
+    "email_card.status_skipped": "⚠️ Status: Not applied",
+    "email_card.status_generic": "Status: {status}",
+    "email_card.summary_header": "📝 Summary",
+    "email_card.fix_header": "🔧 FIX / connection params",
+    "email_card.fields_applied": "📋 Fields written",
+    "email_card.fields_pending": "📋 Pending changes (new values)",
+    "email_card.fields_header": "📋 Fields",
+    "email_card.confidence": "Confidence {pct}",
+    "email_card.footer_applied": "The update is already applied. Undo requests a reversal; dismissing this notice does not change the project again.",
+    "email_card.footer_pending": "ℹ️ Approve to write, or Reject to discard. Milestone changes are never silent-written.",
+    "email_card.title_applied": "Email update applied · {project_id}",
+    "email_card.title_pending": "Review project update",
+    "email_card.title_info": "Email analysis · {project_id}",
+    "push.update_applied": "✅ **Update applied**",
+    "push.update_applied_body": "📋 Project `{project_id}` updated.\n📝 {count} field change(s) written.",
+    "push.update_applied_detail": "  • {field} → {value}",
+    "push.update_applied_footer": "No further approval is needed for this update; follow up on the recorded next action as appropriate.",
+    "push.advisory_situation": "📊 {situation}",
+    "push.advisory_next_steps": "**Next steps:**",
+    "push.advisory_escalate": "⚡ Escalate → {team}: {reason}",
+    "push.advisory_draft_suggestion": "✉️ Draft suggestion: {purpose}",
+    "push.advisory_similar": "📁 Similar cases: {cases}",
+    "push.advisory_confidence": "🎯 Confidence: {confidence}%",
+    "push.advisory_project_title": "Project advisor",
+    "push.advisory_support_title": "Support advisor",
+    "push.advisory_ticket_prefix": "🎫 `{ticket_id}` — {title}",
+    "policy.update_needs_attention": "Project update needs attention: {subject}",
+    "policy.update_body": "From: {sender}\nProject analysis did not complete successfully. Check the source email and current project record before rerunning; do not assume all earlier steps were unexecuted.",
+    "policy.new_email_inquiry": "New email inquiry: {subject}",
+    "policy.email_triage": "Email triage: {subject}",
+    "policy.email_update_result": "[Email → {project_id}] {result}",
+    "push.error_title": "LLM error",
+    "push.error_task": "🤖 Task: {task}",
+    "push.error_class": "❌ Error: {error_class}",
+    "push.error_trace": "🔗 Trace: `{trace_id}`",
+    "push.error_preview": "📝 {preview}",
+    "push.error_hint": "💡 Retry to try again, or dismiss to clear.",
+    "push.update_more": "  • …and {count} more",
+    "sched.overflow_more": "\n… and {count} more",
+    "sched.wiki_more": "  … and {count} more",
+    "sched.confidence": "\nConfidence: {confidence}",
+    "contact.identity_title": "Identity check (global contact)",
+    "contact.identity_body": (
+        "New contact (confirm once, system-wide)\n"
+        "Email: {email}\n"
+        "Suggested name: {name}\n"
+        "Org: {org}\n"
+        "Org type: {org_type}\n"
+        "Recent project: {project_id}\n"
+        "Resolved via: {method}\n\n"
+        "Confirm → add to registry and link project (default org type).\n"
+        "Override → force register as Vendor.\n"
+        "Flag → hand to compliance."
+    ),
+    "sched.afternoon_digest_title": "Afternoon notification digest",
+    "sched.digest_section_sla": "⏱ SLA alerts",
+    "sched.digest_section_followup": "📋 Overdue follow-ups",
+    "sched.digest_section_ticket_aging": "🎫 Ticket aging",
+    "sched.digest_section_email_ambiguous": "📬 Emails to classify",
+    "sched.digest_section_email_deferred": "📨 Deferred emails",
+    "sched.digest_section_support": "🔧 Support tickets",
+    "sched.digest_empty": "✅ No pending notifications",
+    "sched.digest_overflow": "  …and {count} more",
+    "sched.digest_header": "📊 Notification digest ({time})",
+    "sched.digest_pending_header": "📋 Pending notification digest ({count})",
+    "sched.sla_overdue_days": "overdue by {days} day(s)",
+    "sched.followup_overdue_paren": " (overdue {days} day(s))",
+}

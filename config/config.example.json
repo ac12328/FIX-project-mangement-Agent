@@ -1,0 +1,186 @@
+{
+    "database_file": "data/public-demo.db",
+    "data_dir": "data",
+    "sla": {
+        "internal_days": 3,
+        "external_days": 5,
+        "vendor_days": 5,
+        "yellow_remaining": 1,
+        "silence_days": 7
+    },
+    "write_layer": {
+        "confidence_auto_threshold": 0.6,
+        "evidence_required_fields": [
+            "current_milestone",
+            "project_status"
+        ]
+    },
+    "draft_workspace": {
+        "enabled": true
+    },
+    "ai_workspace": {
+        "enabled": true,
+        "operator_writes_enabled": false,
+        "web_search_enabled": false,
+        "web_search_provider": "",
+        "grounding_repair_mode": "legacy",
+        "grounding_repair_timeout_seconds": 20,
+        "tool_centric_shadow_enabled": false,
+        "tool_centric_shadow_queue_capacity": 256,
+        "tool_centric_shadow_timeout_seconds": 20,
+        "tool_centric_mode": "off",
+        "tool_centric_enabled_surfaces": [
+            "workspace",
+            "telegram"
+        ],
+        "tool_centric_planner_model": "openai/default-model",
+        "tool_centric_planner_timeout_seconds": 12
+    },
+    "fix_session_registry": {
+        "enabled": true,
+        "auto_confirm_enabled": true,
+        "telegram_secret_reveal_enabled": false
+    },
+    "telegram": {
+        "combine_email_advisory": true,
+        "bot_token": "",
+        "chat_id": 0,
+        "allowed_chat_ids": [],
+        "allow_all_chats": false,
+        "streaming": {
+            "format_mode": "html",
+            "max_message_length": 4096,
+            "max_rich_message_length": 32768
+        }
+    },
+    "work_hours_start": "08:30",
+    "work_hours_end": "18:00",
+    "llm_keys": {
+        "gemini_api_key": "",
+        "openai_api_key": "",
+        "anthropic_api_key": "",
+        "minimax_api_key": "",
+        "active_provider": "openai",
+        "active_model": "default-model",
+        "ollama_api_base": "http://llm.demo.invalid/v1",
+        "ollama_api_key": "",
+        "local_llm_api_base": "http://llm.demo.invalid/v1",
+        "local_llm_api_key": "",
+        "local_llm_model": "default-model",
+        "backup_model": "default-model",
+        "backup_api_base": "http://llm.demo.invalid/v1",
+        "backup_api_key": "",
+        "vertex_ai_project": "",
+        "vertex_ai_location": "us-central1",
+        "vertex_ai_model": "gemini-2.0-flash-001",
+        "vertex_ai_credentials_path": "",
+        "vertex_ai_credentials_json": ""
+    },
+    "email": {
+        "backend": "smtp",
+        "smtp_host": "smtp.demo.invalid",
+        "smtp_port": 587,
+        "smtp_username": "",
+        "smtp_password": "",
+        "smtp_tls": true,
+        "from_email": "operator@demo.invalid",
+        "from_name": "Demo Operator",
+        "imap": {
+            "enabled": false,
+            "host": "imap.demo.invalid",
+            "port": 993,
+            "username": "",
+            "password": "",
+            "use_ssl": true,
+            "inbox_folder": "INBOX",
+            "sent_folder": "Sent Items",
+            "poll_interval_seconds": 300,
+            "sent_window_hours": 24
+        }
+    },
+    "email_project_truth": {
+        "mode": "off",
+        "shadow_queue_capacity": 128,
+        "shadow_timeout_seconds": 20,
+        "shadow_model": ""
+    },
+    "msgraph": {
+        "enabled": false,
+        "tenant_id": "",
+        "client_id": "",
+        "client_secret": "",
+        "user_email": "operator@demo.invalid",
+        "poll_sent_items": false,
+        "poll_interval_seconds": 300,
+        "calendar_enabled": false,
+        "calendar_id": "calendar",
+        "calendar_sync_interval_seconds": 300,
+        "calendar_past_days": 7,
+        "calendar_future_days": 30
+    },
+    "orchestrator_mode": true,
+    "email_specialist_mode": true,
+    "unified_loop_v2": true,
+    "project_state": {
+        "evidence_grounded_enabled": true,
+        "shadow_legacy_inference": true,
+        "require_assessment_for_milestone_review": true,
+        "contract_version": "2"
+    },
+    "operator_id": "default_operator",
+    "memory_reform": {
+        "operator_memory_enabled": true,
+        "memory_guard_enabled": true,
+        "thread_artifacts_enabled": true,
+        "memory_flush_to_store": true
+    },
+    "personal_assistant": {
+        "enabled": false,
+        "universal_email_enabled": false,
+        "work_items_enabled": false,
+        "reminders_enabled": false,
+        "personal_brief_enabled": false,
+        "inbox_intelligence_enabled": true,
+        "calendar_read_enabled": false,
+        "meeting_prep_enabled": false,
+        "meeting_ingestion_enabled": false,
+        "calendar_write_enabled": false
+    },
+    "observability": {
+        "enabled": true,
+        "full_payload_capture": false,
+        "auto_diagnosis": true,
+        "payload_retention_days": 30,
+        "detail_retention_days": 180,
+        "queue_capacity": 10000,
+        "retry_interval_seconds": 0.2,
+        "shutdown_flush_seconds": 5,
+        "spool_path": null
+    },
+    "dashboard_auth": {
+        "enabled": true,
+        "mode": "local",
+        "local_registration_enabled": false,
+        "allowed_email_domains": [
+            "demo.invalid"
+        ],
+        "email_verification_ttl_minutes": 30,
+        "password_reset_ttl_minutes": 30,
+        "password_min_length": 8,
+        "initial_admin_email": "",
+        "absolute_session_hours": 12,
+        "idle_session_minutes": 120,
+        "session_touch_minutes": 5,
+        "cookie_secure": false,
+        "production": false,
+        "legacy_password_login_enabled": false
+    },
+    "dashboard_base_url": "http://127.0.0.1:3317",
+    "api_port": 8317,
+    "company_domains": [
+        "demo.invalid",
+        "provisioning.demo.invalid",
+        "acceptance.demo.invalid",
+        "exception.demo.invalid"
+    ]
+}

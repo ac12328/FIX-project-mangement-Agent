@@ -1,0 +1,9 @@
+# Force CRLF for Windows batch/cmd files (cmd.exe requires CRLF)
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Preserve exact LF bytes for SHA256-pinned historical migration inputs.
+/tests/fixtures/p6_committed_v22_processed_emails.sql text eol=lf
+/tests/fixtures/p6_historical_refs.txt text eol=lf
+/tests/fixtures/p6_historical_v1.sql text eol=lf
+/tests/fixtures/p6_historical_v119.sql text eol=lf

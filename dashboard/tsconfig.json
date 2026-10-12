@@ -1,0 +1,72 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts",
+    "**/*.mts",
+    ".next-real-stack-16240/types/**/*.ts",
+    ".next-real-stack-16240/dev/types/**/*.ts",
+    ".next-real-stack-71216/types/**/*.ts",
+    ".next-real-stack-71216/dev/types/**/*.ts",
+    ".next-real-stack-33684/types/**/*.ts",
+    ".next-real-stack-33684/dev/types/**/*.ts",
+    ".next-real-stack-67172/types/**/*.ts",
+    ".next-real-stack-67172/dev/types/**/*.ts",
+    ".next-real-stack-65256/types/**/*.ts",
+    ".next-real-stack-65256/dev/types/**/*.ts",
+    ".next-real-stack-49188/types/**/*.ts",
+    ".next-real-stack-49188/dev/types/**/*.ts",
+    ".next-real-stack-17868/types/**/*.ts",
+    ".next-real-stack-17868/dev/types/**/*.ts",
+    ".next-real-stack-24952/types/**/*.ts",
+    ".next-real-stack-24952/dev/types/**/*.ts",
+    ".next-real-stack-22056/types/**/*.ts",
+    ".next-real-stack-22056/dev/types/**/*.ts",
+    ".next-real-stack-36688/types/**/*.ts",
+    ".next-real-stack-36688/dev/types/**/*.ts",
+    ".next-real-stack-76180/types/**/*.ts",
+    ".next-real-stack-76180/dev/types/**/*.ts",
+    ".next-real-stack-59676/types/**/*.ts",
+    ".next-real-stack-59676/dev/types/**/*.ts",
+    ".next-real-stack-61732/types/**/*.ts",
+    ".next-real-stack-61732/dev/types/**/*.ts",
+    ".next-real-stack-26192/types/**/*.ts",
+    ".next-real-stack-26192/dev/types/**/*.ts",
+    ".next-real-stack-74564/types/**/*.ts",
+    ".next-real-stack-74564/dev/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

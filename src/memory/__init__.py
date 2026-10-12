@@ -1,0 +1,1 @@
+"""Memory harness modules (operator store, thread artifacts, write policy)."""

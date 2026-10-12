@@ -1,0 +1,111 @@
+{
+    "database_file": "data/public-demo-test.db",
+    "data_dir": "data",
+    "api_port": 8318,
+    "sla": {
+        "internal_days": 3,
+        "external_days": 5,
+        "vendor_days": 5,
+        "yellow_remaining": 1,
+        "silence_days": 7
+    },
+    "write_layer": {
+        "confidence_auto_threshold": 0.6,
+        "evidence_required_fields": [
+            "current_milestone",
+            "project_status"
+        ]
+    },
+    "telegram": {
+        "bot_token": "",
+        "chat_id": 0,
+        "allowed_chat_ids": [],
+        "allow_all_chats": false
+    },
+    "work_hours_start": "08:30",
+    "work_hours_end": "18:00",
+    "llm_keys": {
+        "gemini_api_key": "",
+        "openai_api_key": "",
+        "anthropic_api_key": "",
+        "minimax_api_key": "",
+        "active_provider": "openai",
+        "active_model": "default-model",
+        "ollama_api_base": "http://llm.demo.invalid/v1",
+        "ollama_api_key": "",
+        "local_llm_api_base": "http://llm.demo.invalid/v1",
+        "local_llm_api_key": "",
+        "local_llm_model": "default-model",
+        "backup_model": "default-model",
+        "backup_api_base": "http://llm.demo.invalid/v1",
+        "backup_api_key": "",
+        "vertex_ai_project": "",
+        "vertex_ai_location": "us-central1",
+        "vertex_ai_model": "gemini-2.0-flash-001",
+        "vertex_ai_credentials_path": "",
+        "vertex_ai_credentials_json": ""
+    },
+    "email": {
+        "backend": "smtp",
+        "smtp_host": "smtp.demo.invalid",
+        "smtp_port": 587,
+        "smtp_username": "",
+        "smtp_password": "",
+        "smtp_tls": true,
+        "from_email": "operator@demo.invalid",
+        "from_name": "Demo Operator",
+        "imap": {
+            "enabled": false,
+            "host": "imap.demo.invalid",
+            "port": 993,
+            "username": "",
+            "password": "",
+            "use_ssl": true,
+            "inbox_folder": "INBOX",
+            "sent_folder": "Sent Items",
+            "poll_interval_seconds": 300,
+            "sent_window_hours": 24
+        }
+    },
+    "dashboard_base_url": "http://127.0.0.1:3318",
+    "unified_loop_v2": true,
+    "orchestrator_mode": true,
+    "msgraph": {
+        "enabled": false,
+        "tenant_id": "",
+        "client_id": "",
+        "client_secret": "",
+        "user_email": "operator@demo.invalid",
+        "poll_sent_items": false,
+        "poll_interval_seconds": 300,
+        "calendar_enabled": false,
+        "calendar_id": "calendar",
+        "calendar_sync_interval_seconds": 300,
+        "calendar_past_days": 7,
+        "calendar_future_days": 30
+    },
+    "dashboard_auth": {
+        "enabled": true,
+        "mode": "local",
+        "local_registration_enabled": false,
+        "allowed_email_domains": [
+            "demo.invalid"
+        ],
+        "email_verification_ttl_minutes": 30,
+        "password_reset_ttl_minutes": 30,
+        "password_min_length": 8,
+        "initial_admin_email": "",
+        "absolute_session_hours": 12,
+        "idle_session_minutes": 120,
+        "session_touch_minutes": 5,
+        "cookie_secure": false,
+        "production": false,
+        "legacy_password_login_enabled": false
+    },
+    "company_domains": [
+        "demo.invalid",
+        "provisioning.demo.invalid",
+        "acceptance.demo.invalid",
+        "exception.demo.invalid"
+    ]
+}

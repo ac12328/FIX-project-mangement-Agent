@@ -1,0 +1,77 @@
+# Local-only release preparation evidence
+/_publication_review/
+
+# Credentials and live configuration
+.env
+.env.*
+!.env.example
+config.json
+config.local.json
+service_account.json
+*.pem
+*.key
+*.pfx
+*.p12
+
+# Runtime, production-derived material, and generated outputs
+*.db
+*.db-*
+*.sqlite
+*.sqlite3
+*.sqlite-*
+*.log
+logs/
+backups/
+attachments/
+/data/
+/dashboard/data/
+/artifacts/
+/eval/
+/agent_eval/
+/Reference attachment/
+/design-screenshots/
+/.playwright-mcp/
+
+# Dependencies, caches, and local worktrees
+node_modules/
+.next/
+.next-*/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.uv-cache/
+.worktrees/
+.gstack/
+.coverage
+htmlcov/
+coverage.xml
+dist/
+build/
+playwright-report/
+test-results/
+.DS_Store
+Thumbs.db
+
+# Never publish review evidence or identity reversal material
+/public-review-private/
+/quarantine/
+/private-backup/
+*_MAPPING_PRIVATE.*
+*_REVIEW_PRIVATE.*
+*.bak
+*.tmp
+.openapi.json
+*.tsbuildinfo
+/config.test.json
+/config.production.json
+/service_account*.json
+*.jsonl
+*.eml
+*.msg
+/.codex/
+/.agents/
+/.aws/
