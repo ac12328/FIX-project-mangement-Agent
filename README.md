@@ -1,6 +1,28 @@
-# AgentFIXBPRO — De-identified Preparation Edition
+# AgentFIXBPRO — AI-Assisted Project Management
 
-**Public preparation snapshot. Not a production deployment or a certified release.**
+An AI-assisted project management platform with FIX connectivity onboarding as its reference implementation.
+
+AgentFIXBPRO brings project communication, evidence, milestones and follow-up work into a shared context. It helps teams understand project status, identify who owns the next action, and coordinate work through AI-assisted recommendations, review controls and management interfaces.
+
+## Core capabilities
+
+- Organize project communication and supporting evidence.
+- Track milestones, status, responsibilities and next actions.
+- Assist with project analysis and response drafting.
+- Manage follow-up work, commitments and reminders.
+- Provide Telegram and web dashboard interfaces.
+- Preserve evidence provenance, review gates and delivery-confirmation controls.
+
+## Why FIX onboarding?
+
+FIX connectivity onboarding demonstrates a structured, evidence-driven workflow involving multiple teams, staged testing and operational handoffs.
+
+The design aims to make its project-management capabilities reusable across domains. The current implementation still contains FIX-specific milestones and policy rules; adapting it to another workflow requires further engineering and validation.
+
+## Public edition status
+
+This repository contains a de-identified preparation snapshot. Private organizational data and historical cases are excluded. Runtime startup remains intentionally blocked, and this edition has not completed full application or deployment validation.
+
 Prepared on 2026-10-12.
 
 This independent source snapshot has no original Git history or shared worktree. The owner separately authorized publication of this incomplete preparation edition on 2026-10-12. This authorization does not establish third-party rights, institutional know-how clearance, a license, policy coherence or runtime readiness.
